@@ -18,6 +18,18 @@ class StarShipsViewSet(viewsets.ModelViewSet):
     serializer_class = StarshipSerializer
     permission_classes = [permissions.AllowAny,]
 
+    @action(detail=True, methods=['patch'], url_path='add_favorite')
+    def add_favorite(self, request, pk=None):
+        starship = Starship.objects.get(id=pk)
+        request.user.starships_favorite.add(starship)
+        return Response(status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['patch'], url_path='remove_favorite')
+    def remove_favorite(self, request, pk=None):
+        starship = Starship.objects.get(id=pk)
+        request.user.starships_favorite.remove(starship)
+        return Response(status=status.HTTP_200_OK)
+
 
 class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()

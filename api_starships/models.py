@@ -11,6 +11,9 @@ class Starship(models.Model):
     hyperdrive_rating = models.DecimalField(max_digits=2, decimal_places=1, default=1.0)
     name = models.CharField(max_length=255, null=False)
 
+    def get_total_favorite_user(self):
+        return len(self.user_favorite.all())
+
 
 class Account(AbstractBaseUser):
     """Class Account."""
@@ -19,7 +22,7 @@ class Account(AbstractBaseUser):
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
     email = models.EmailField(max_length=255, blank=True)
-    starships_favorite = models.ManyToManyField(Starship, blank=True)
+    starships_favorite = models.ManyToManyField(Starship, blank=True, related_name="user_favorite")
 
     objects = CustomUserManager()
 

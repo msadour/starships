@@ -8,7 +8,12 @@ class StarshipSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Starship
-        fields = '__all__'
+        fields = [
+            "id",
+            "name",
+            "hyperdrive_rating",
+            "get_total_favorite_user"
+        ]
 
 
 class AccountSerializer(serializers.ModelSerializer):
