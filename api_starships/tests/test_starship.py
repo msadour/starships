@@ -63,3 +63,45 @@ class AccountTestCase(APITestCase):
         response = self.client.patch(url_starship + f"{self.starship.id}/remove_favorite/")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_post_forbidden(self) -> None:
+        """Test delete an account from another user (forbidden).
+
+        Raises:
+            AssertError: Assertion failed.
+        """
+        data = (
+            """{
+                "name": "test",
+                "hyperdrive_rating": 1.0
+            }"""
+        )
+
+        response = self.client.post(
+            url_starship, data=data, content_type="application/json"
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_delete_forbidden(self) -> None:
+        """Test delete an account from another user (forbidden).
+
+        Raises:
+            AssertError: Assertion failed.
+        """
+        response = self.client.delete(url_starship + str(self.starship.id) + "/")
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_partial_update_forbidden(self) -> None:
+        """Test update an account from another user (forbidden).
+
+        Raises:
+            AssertError: Assertion failed.
+        """
+        response = self.client.patch(
+            url_starship + str(self.starship.id) + "/",
+            data={"name": "new name"},
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

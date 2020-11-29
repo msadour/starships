@@ -15,6 +15,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from api_starships.models import Starship, Account
+from api_starships.permissions import StarshipPermission, AccountPermission
 from api_starships.serializers import StarshipSerializer, AccountSerializer, AuthTokenSerializer
 
 
@@ -23,7 +24,7 @@ class StarShipsViewSet(viewsets.ModelViewSet):
 
     queryset = Starship.objects.all().order_by("hyperdrive_rating")
     serializer_class = StarshipSerializer
-    permission_classes = [permissions.AllowAny, ]
+    permission_classes = (StarshipPermission, )
 
     @action(detail=True, methods=['patch'], url_path='add_favorite')
     def add_favorite(self, request: Request, pk: int = None) -> Response:
@@ -61,7 +62,7 @@ class AccountViewSet(viewsets.ModelViewSet):
 
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
-    permission_classes = [permissions.AllowAny, ]
+    permission_classes = (AccountPermission, )
 
     def create(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         """Create a member.

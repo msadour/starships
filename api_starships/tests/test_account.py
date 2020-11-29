@@ -1,7 +1,7 @@
 """Test account module."""
 
 from __future__ import absolute_import
-import django;django.setup()
+import django ; django.setup()
 
 
 from rest_framework import status
@@ -21,6 +21,7 @@ class AccountTestCase(APITestCase):
         """Set up attributes for tests."""
         self.client = APIClient()
         self.account = AccountFactory()
+        self.another_account = AccountFactory()
         self.client.force_authenticate(user=self.account)
 
     def test_list(self) -> None:
@@ -88,3 +89,26 @@ class AccountTestCase(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["first_name"], "new first name")
+
+    def test_delete_forbidden(self) -> None:
+        """Test delete an account from another user (forbidden).
+
+        Raises:
+            AssertError: Assertion failed.
+        """
+        response = self.client.delete(url_account + str(self.another_account.id) + "/")
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_partial_update_forbidden(self) -> None:
+        """Test update an account from another user (forbidden).
+
+        Raises:
+            AssertError: Assertion failed.
+        """
+        response = self.client.patch(
+            url_account + str(self.another_account.id) + "/",
+            data={"first_name": "new first name"},
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
