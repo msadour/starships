@@ -1,7 +1,7 @@
 """Test account module."""
 
 from __future__ import absolute_import
-import django ; django.setup()
+import django;django.setup()
 
 
 from rest_framework import status

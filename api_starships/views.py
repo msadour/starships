@@ -1,3 +1,7 @@
+"""Views module."""
+
+from typing import Any
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import logout as django_logout
 from rest_framework import viewsets, permissions, status
@@ -7,6 +11,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import action, permission_classes
 from django.conf import settings
+from rest_framework.request import Request
 from rest_framework.response import Response
 
 from api_starships.models import Starship, Account
@@ -14,29 +19,51 @@ from api_starships.serializers import StarshipSerializer, AccountSerializer, Aut
 
 
 class StarShipsViewSet(viewsets.ModelViewSet):
+    """Class StarShipsViewSet."""
+
     queryset = Starship.objects.all().order_by("hyperdrive_rating")
     serializer_class = StarshipSerializer
-    permission_classes = [permissions.AllowAny,]
+    permission_classes = [permissions.AllowAny, ]
 
     @action(detail=True, methods=['patch'], url_path='add_favorite')
-    def add_favorite(self, request, pk=None):
+    def add_favorite(self, request: Request, pk: int = None) -> Response:
+        """Add a starship as favorite for a user.
+
+        Args:
+            request: request sent by the client.
+            pk: Id of the starship.
+
+        Returns:
+            Response from the server.
+        """
         starship = Starship.objects.get(id=pk)
         request.user.starships_favorite.add(starship)
         return Response(status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['patch'], url_path='remove_favorite')
-    def remove_favorite(self, request, pk=None):
+    def remove_favorite(self, request: Request, pk: int = None) -> Response:
+        """Remove a starship in favorite for a user.
+
+        Args:
+            request: request sent by the client.
+            pk: Id of the starship.
+
+        Returns:
+            Response from the server.
+        """
         starship = Starship.objects.get(id=pk)
         request.user.starships_favorite.remove(starship)
         return Response(status=status.HTTP_200_OK)
 
 
 class AccountViewSet(viewsets.ModelViewSet):
+    """Class AccountViewSet."""
+
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
-    permission_classes = [permissions.AllowAny,]
+    permission_classes = [permissions.AllowAny, ]
 
-    def create(self, request, *args, **kwargs) -> Response:
+    def create(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         """Create a member.
 
         Args:
@@ -59,7 +86,7 @@ class CustomAuthToken(ObtainAuthToken):
 
     authentication_classes = [TokenAuthentication]
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         """Create token for authentication.
 
         Args:
@@ -87,7 +114,7 @@ class CustomAuthToken(ObtainAuthToken):
 class LogoutViewSet(viewsets.ViewSet):
     """Class LogoutViewSet."""
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request: Request, *args: Any, **kwargs: Any):
         """Log out.
 
         Args:
@@ -98,7 +125,7 @@ class LogoutViewSet(viewsets.ViewSet):
         """
         return self.logout(request)
 
-    def logout(self, request) -> Response:
+    def logout(self, request: Request) -> Response:
         """Log out.
 
         Args:

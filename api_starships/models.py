@@ -1,5 +1,6 @@
+"""Models."""
+
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import UserManager
 from django.db import models
 
 from api_starships.managers import CustomUserManager
@@ -11,7 +12,12 @@ class Starship(models.Model):
     hyperdrive_rating = models.DecimalField(max_digits=2, decimal_places=1, default=1.0)
     name = models.CharField(max_length=255, null=False)
 
-    def get_total_favorite_user(self):
+    def get_total_favorite_user(self) -> int:
+        """Return the number of people that add this starship as favorite.
+
+        Returns:
+            Number of added in favorite.
+        """
         return len(self.user_favorite.all())
 
 

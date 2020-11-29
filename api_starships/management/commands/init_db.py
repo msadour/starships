@@ -9,7 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 from django.core.management.base import BaseCommand
 
-from api_starships.models import Starship
+from api_starships.models import Starship, Account
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -18,7 +18,7 @@ class Command(BaseCommand):
     """Class command."""
 
     def handle(self, *args: Any, **options: Any) -> None:
-        """Execute the command that create users(s).
+        """Execute the command that cinit the database.
 
         Args:
             args: Variable length argument list.
@@ -27,6 +27,7 @@ class Command(BaseCommand):
 
         def delete_data() -> None:
             """Clean database."""
+            Account.objects.all().delete()
             Starship.objects.all().delete()
 
         try:
@@ -47,7 +48,7 @@ class Command(BaseCommand):
                             name=name,
                             hyperdrive_rating=round(random.uniform(0.5, 4.0), 1)
                         )
-                    except:
+                    except Exception:
                         pass
                     time.sleep(10)
                 time.sleep(10)

@@ -8,10 +8,10 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class CustomUserManager(BaseUserManager):
-    """Custom user model manager where email is the unique identifiers for authentication instead of usernames."""
+    """Custom user model manager."""
 
     def create_user(self, **fields: Any) -> User:
-        """Create and save a User with the given email and password.
+        """Create and save a User.
 
         Args:
             fields: Arbitrary keyword arguments.
@@ -44,7 +44,7 @@ class CustomUserManager(BaseUserManager):
         password: str = None,
         **extra_fields: Any
     ) -> User:
-        """Create and save a SuperUser with the given email and password.
+        """Create and save a SuperUser.
 
         Args:
             username:

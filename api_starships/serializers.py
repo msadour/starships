@@ -1,3 +1,5 @@
+"""Serializer."""
+
 from django.contrib.auth.hashers import check_password
 from rest_framework import serializers
 
@@ -5,8 +7,11 @@ from .models import Starship, Account
 
 
 class StarshipSerializer(serializers.ModelSerializer):
+    """Class StarshipSerializer."""
 
     class Meta:
+        """Class Meta."""
+
         model = Starship
         fields = [
             "id",
@@ -17,8 +22,11 @@ class StarshipSerializer(serializers.ModelSerializer):
 
 
 class AccountSerializer(serializers.ModelSerializer):
+    """Class AccountSerializer."""
 
     class Meta:
+        """Class Meta."""
+
         model = Account
         fields = '__all__'
 
