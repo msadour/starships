@@ -31,8 +31,6 @@ class Command(BaseCommand):
             Starship.objects.all().delete()
 
         try:
-            delete_data()
-
             url = "https://en.wikipedia.org/wiki/List_of_Star_Wars_spacecraft"
 
             response_starships = requests.get(url)
