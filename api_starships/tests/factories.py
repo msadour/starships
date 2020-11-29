@@ -2,7 +2,7 @@
 
 import factory
 
-from api_starships.models import Account
+from api_starships.models import Account, Starship
 
 
 class AccountFactory(factory.django.DjangoModelFactory):
@@ -18,3 +18,15 @@ class AccountFactory(factory.django.DjangoModelFactory):
         """class Meta."""
 
         model = Account
+
+
+class StarShipFactory(factory.django.DjangoModelFactory):
+    """Class StarShipFactory."""
+
+    hyperdrive_rating = 1.0
+    name = "super starship"
+
+    class Meta:
+        """class Meta."""
+
+        model = Starship
