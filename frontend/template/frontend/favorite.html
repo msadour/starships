@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "frontend/base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+        <ul>
+            <li>
+                <button> <a href="{% url 'logout' %}">Logout</a></button>
+            </li>
+            <li>
+                <button> <a href="/">List starships</a></button>
+            </li>
+        </ul>
+
+    <h1>Starships</h1>
+    <table border="1">
+        <tr>
+            <th>Name of starship</th>
+            <th>Hyperdrive rating</th>
+        </tr>
+
+        {% for starship in starships_favorite %}
+
+            <tr>
+                <th>{{ starship.name }}</th>
+                <th>{{starship.hyperdrive_rating}}</th>
+            </tr>
+
+        {% empty %}
+            <p></p>
+        {% endfor %}
+    </table>
+{% endblock content %}

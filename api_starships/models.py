@@ -28,7 +28,9 @@ class Account(AbstractBaseUser):
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
     email = models.EmailField(max_length=255, blank=True)
-    starships_favorite = models.ManyToManyField(Starship, blank=True, related_name="user_favorite")
+    starships_favorite = models.ManyToManyField(
+        Starship, blank=True, related_name="user_favorite"
+    )
 
     objects = CustomUserManager()
 

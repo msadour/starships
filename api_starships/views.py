@@ -16,7 +16,11 @@ from rest_framework.response import Response
 
 from api_starships.models import Starship, Account
 from api_starships.permissions import StarshipPermission, AccountPermission
-from api_starships.serializers import StarshipSerializer, AccountSerializer, AuthTokenSerializer
+from api_starships.serializers import (
+    StarshipSerializer,
+    AccountSerializer,
+    AuthTokenSerializer,
+)
 
 
 class StarShipsViewSet(viewsets.ModelViewSet):
@@ -24,9 +28,9 @@ class StarShipsViewSet(viewsets.ModelViewSet):
 
     queryset = Starship.objects.all().order_by("hyperdrive_rating")
     serializer_class = StarshipSerializer
-    permission_classes = (StarshipPermission, )
+    permission_classes = (StarshipPermission,)
 
-    @action(detail=True, methods=['patch'], url_path='add_favorite')
+    @action(detail=True, methods=["patch"], url_path="add_favorite")
     def add_favorite(self, request: Request, pk: int = None) -> Response:
         """Add a starship as favorite for a user.
 
@@ -41,7 +45,7 @@ class StarShipsViewSet(viewsets.ModelViewSet):
         request.user.starships_favorite.add(starship)
         return Response(status=status.HTTP_200_OK)
 
-    @action(detail=True, methods=['patch'], url_path='remove_favorite')
+    @action(detail=True, methods=["patch"], url_path="remove_favorite")
     def remove_favorite(self, request: Request, pk: int = None) -> Response:
         """Remove a starship in favorite for a user.
 
@@ -62,7 +66,7 @@ class AccountViewSet(viewsets.ModelViewSet):
 
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
-    permission_classes = (AccountPermission, )
+    permission_classes = (AccountPermission,)
 
     def create(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         """Create a member.
@@ -103,12 +107,9 @@ class CustomAuthToken(ObtainAuthToken):
 
             token, created = Token.objects.get_or_create(user=user)
             return Response(
-                {
-                    "token": token.key,
-                    "username": user.username,
-                    "account_id": user.id,
-                }
+                {"token": token.key, "username": user.username, "account_id": user.id,}
             )
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 @permission_classes((permissions.AllowAny,))

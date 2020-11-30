@@ -1,11 +1,40 @@
 {% extends "frontend/base.html" %}
 
 {% block content %}
+
+    {% if token %}
+
+        <ul>
+            <li>
+                <button> <a href="{% url 'logout' %}">Logout</a></button>
+            </li>
+        </ul>
+
+        <ul>
+            <li>
+                <button> <a href="{% url 'favorite' %}">Favorite starship</a></button>
+            </li>
+        </ul>
+
+    {% else %}
+
+        <ul>
+            <li>
+                <button> <a href="{% url 'authentication' %}">Login</a></button>
+                <button> <a href="{% url 'subscription_page' %}">Subscription</a></button>
+            </li>
+        </ul>
+
+    {% endif %}
+
     <h1>Starships</h1>
     <table border="1">
         <tr>
             <th>Name of starship</th>
             <th>Hyperdrive rating</th>
+            {% if token %}
+                <th>Favorite</th>
+            {% endif %}
         </tr>
 
         {% for starship in list_starship %}
@@ -13,6 +42,19 @@
             <tr>
                 <th>{{ starship.name }}</th>
                 <th>{{starship.hyperdrive_rating}}</th>
+                {% if token %}
+                    <th>
+                        <form method="POST" action="add_favorite/{{starship.id}}">
+                            {% csrf_token %}
+                            <button type="submit">Add favorite</button>
+                        </form>
+
+                        <form method="POST" action="remove_favorite/{{starship.id}}">
+                            {% csrf_token %}
+                            <button type="submit">Remove favorite</button>
+                        </form>
+                    </th>
+                {% endif %}
             </tr>
 
         {% empty %}

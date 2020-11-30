@@ -3,7 +3,12 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from api_starships.views import StarShipsViewSet, AccountViewSet, CustomAuthToken, LogoutViewSet
+from api_starships.views import (
+    StarShipsViewSet,
+    AccountViewSet,
+    CustomAuthToken,
+    LogoutViewSet,
+)
 
 router = DefaultRouter()
 router.register(r"logout", LogoutViewSet, basename="logout")

@@ -16,6 +16,6 @@ Including another URLconf
 from django.urls import path, include
 
 urlpatterns = [
-    path('api_starships/', include("api_starships.urls")),
-    path('', include("frontend.urls")),
+    path("api_starships/", include("api_starships.urls")),
+    path("", include("frontend.urls")),
 ]

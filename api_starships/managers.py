@@ -23,6 +23,10 @@ class CustomUserManager(BaseUserManager):
         username = fields.get("username", None)
         password = fields.get("password")
 
+        email = email[0] if type(email) == list else email
+        username = username[0] if type(username) == list else username
+        password = password[0] if type(password) == list else password
+
         if not username:
             raise ValueError(_("The username must be set"))
 
@@ -31,6 +35,20 @@ class CustomUserManager(BaseUserManager):
                 raise ValueError(_("The two password are different."))
         fields.pop("password_again", None)
         fields["email"] = self.normalize_email(email)
+
+        fields["email"] = (
+            fields["email"][0] if type(fields["email"]) == list else fields["email"]
+        )
+        fields["username"] = (
+            fields["username"][0]
+            if type(fields["username"]) == list
+            else fields["username"]
+        )
+        fields["password"] = (
+            fields["password"][0]
+            if type(fields["password"]) == list
+            else fields["password"]
+        )
 
         user = self.model(**fields)
         user.set_password(password)

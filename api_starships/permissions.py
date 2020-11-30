@@ -10,9 +10,7 @@ from rest_framework.viewsets import ModelViewSet
 class StarshipPermission(permissions.BasePermission):
     """Class StarshipPermission."""
 
-    def has_permission(
-        self, request: Request, view: ModelViewSet
-    ) -> Any:
+    def has_permission(self, request: Request, view: ModelViewSet) -> Any:
         """Check permission, for CRUD.
 
         Args:

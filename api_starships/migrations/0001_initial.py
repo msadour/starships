@@ -7,32 +7,56 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Starship',
+            name="Starship",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('hyperdrive_rating', models.DecimalField(decimal_places=1, default=1.0, max_digits=2)),
-                ('name', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "hyperdrive_rating",
+                    models.DecimalField(decimal_places=1, default=1.0, max_digits=2),
+                ),
+                ("name", models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name='Account',
+            name="Account",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('username', models.CharField(max_length=255, unique=True)),
-                ('first_name', models.CharField(blank=True, max_length=255)),
-                ('last_name', models.CharField(blank=True, max_length=255)),
-                ('email', models.EmailField(blank=True, max_length=255)),
-                ('starships_favorite', models.ManyToManyField(blank=True, to='api_starships.Starship')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "last_login",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
+                ),
+                ("username", models.CharField(max_length=255, unique=True)),
+                ("first_name", models.CharField(blank=True, max_length=255)),
+                ("last_name", models.CharField(blank=True, max_length=255)),
+                ("email", models.EmailField(blank=True, max_length=255)),
+                (
+                    "starships_favorite",
+                    models.ManyToManyField(blank=True, to="api_starships.Starship"),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False,},
         ),
     ]

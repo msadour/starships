@@ -3,7 +3,6 @@
 from __future__ import absolute_import
 import django ; django.setup()
 
-
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
@@ -50,15 +49,13 @@ class AccountTestCase(APITestCase):
         Raises:
             AssertError: Assertion failed.
         """
-        data_account = (
-            """{
+        data_account = """{
           "username": "member@gmail.com",
           "email": "member@gmail.com",
           "password": "qwertz",
           "first_name": "fname2",
           "last_name": "lname2"
         }"""
-        )
 
         response = self.client.post(
             url_account, data=data_account, content_type="application/json"
@@ -88,7 +85,6 @@ class AccountTestCase(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["first_name"], "new first name")
 
     def test_delete_forbidden(self) -> None:
         """Test delete an account from another user (forbidden).

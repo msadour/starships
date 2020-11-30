@@ -35,8 +35,8 @@ class Command(BaseCommand):
 
             response_starships = requests.get(url)
             if response_starships.ok:
-                soup = BeautifulSoup(response_starships.text, 'lxml')
-                starships = soup.findAll('h3')
+                soup = BeautifulSoup(response_starships.text, "lxml")
+                starships = soup.findAll("h3")
                 for num, ship in enumerate(starships):
                     print(str(num + 1) + "/" + str(len(starships)))
                     try:
@@ -44,7 +44,7 @@ class Command(BaseCommand):
 
                         Starship.objects.create(
                             name=name,
-                            hyperdrive_rating=round(random.uniform(0.5, 4.0), 1)
+                            hyperdrive_rating=round(random.uniform(0.5, 4.0), 1),
                         )
                     except Exception:
                         pass

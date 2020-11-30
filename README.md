@@ -27,6 +27,7 @@ $ python manage.py runserver
 ## Commands
 
 * Launch server : python manage.py runserver
+* before launch tests : export DJANGO_SETTINGS_MODULE=starships.settings
 * Launch tests :  python -m pytest
 * If you don't see starships, please launch this command : python manage.py init_db (could take few minutes)
 

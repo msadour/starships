@@ -13,22 +13,19 @@ class StarshipSerializer(serializers.ModelSerializer):
         """Class Meta."""
 
         model = Starship
-        fields = [
-            "id",
-            "name",
-            "hyperdrive_rating",
-            "get_total_favorite_user"
-        ]
+        fields = ["id", "name", "hyperdrive_rating", "get_total_favorite_user"]
 
 
 class AccountSerializer(serializers.ModelSerializer):
     """Class AccountSerializer."""
 
+    starships_favorite = StarshipSerializer(many=True)
+
     class Meta:
         """Class Meta."""
 
         model = Account
-        fields = '__all__'
+        fields = ["id", "username", "email", "starships_favorite"]
 
 
 class AuthTokenSerializer(serializers.Serializer):

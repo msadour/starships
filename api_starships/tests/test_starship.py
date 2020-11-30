@@ -1,11 +1,11 @@
 """Test starship module."""
 
 from __future__ import absolute_import
-import django;django.setup()
-
+import django ; django.setup()
 
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
+
 
 from api_starships.tests.factories import AccountFactory, StarShipFactory
 
@@ -60,7 +60,9 @@ class AccountTestCase(APITestCase):
         Raises:
             AssertError: Assertion failed.
         """
-        response = self.client.patch(url_starship + f"{self.starship.id}/remove_favorite/")
+        response = self.client.patch(
+            url_starship + f"{self.starship.id}/remove_favorite/"
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -70,12 +72,10 @@ class AccountTestCase(APITestCase):
         Raises:
             AssertError: Assertion failed.
         """
-        data = (
-            """{
+        data = """{
                 "name": "test",
                 "hyperdrive_rating": 1.0
             }"""
-        )
 
         response = self.client.post(
             url_starship, data=data, content_type="application/json"
@@ -100,8 +100,7 @@ class AccountTestCase(APITestCase):
             AssertError: Assertion failed.
         """
         response = self.client.patch(
-            url_starship + str(self.starship.id) + "/",
-            data={"name": "new name"},
+            url_starship + str(self.starship.id) + "/", data={"name": "new name"},
         )
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
