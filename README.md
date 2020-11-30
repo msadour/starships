@@ -21,8 +21,6 @@ $ source .venv/bin/activate
 
 $ python -m pip install -r requirements.txt
 
-$ python manage.py init_db    (could take few minutes)
-
 $ python manage.py runserver 
 ```
 
@@ -30,10 +28,11 @@ $ python manage.py runserver
 
 * Launch server : python manage.py runserver
 * Launch tests :  python -m pytest
-
+* If you don't see starships, please launch this command : python manage.py init_db (could take few minutes)
 
 ## Utilisation
 
+* the home page with list of starships : http://127.0.0.1:8000/
 * Display star ships : http://127.0.0.1:8000/api_starships/starship
 * Create your account (with POST method) : http://127.0.0.1:8000/api_starships/account/ 
 the body request should be like that : 

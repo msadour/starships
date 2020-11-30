@@ -1,0 +1,22 @@
+{% extends "frontend/base.html" %}
+
+{% block content %}
+    <h1>Starships</h1>
+    <table border="1">
+        <tr>
+            <th>Name of starship</th>
+            <th>Hyperdrive rating</th>
+        </tr>
+
+        {% for starship in list_starship %}
+
+            <tr>
+                <th>{{ starship.name }}</th>
+                <th>{{starship.hyperdrive_rating}}</th>
+            </tr>
+
+        {% empty %}
+            <li>No starships yet.</li>
+        {% endfor %}
+    </table>
+{% endblock content %}

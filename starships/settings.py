@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "rest_auth.registration",
     'api_starships',
+    'frontend'
 ]
 
 MIDDLEWARE = [
