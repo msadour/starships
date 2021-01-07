@@ -30,6 +30,24 @@ class StarShipsViewSet(viewsets.ModelViewSet):
     serializer_class = StarshipSerializer
     permission_classes = (StarshipPermission,)
 
+    def list(self, request, *args, **kwargs):
+        """List of the starships.
+
+        Args:
+            request: request sent by the client.
+            args:
+            kwargs:
+
+        Returns:
+            Response from the server.
+        """
+        order_by = request.GET.get("order_by") or "hyperdrive_rating"
+        self.queryset = self.queryset.order_by(order_by)
+
+        serializer = self.serializer_class(self.queryset, many=True)
+
+        return Response(data=serializer.data)
+
     @action(detail=True, methods=["patch"], url_path="add_favorite")
     def add_favorite(self, request: Request, pk: int = None) -> Response:
         """Add a starship as favorite for a user.

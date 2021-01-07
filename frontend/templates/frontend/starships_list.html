@@ -44,15 +44,17 @@
                 <th>{{starship.hyperdrive_rating}}</th>
                 {% if token %}
                     <th>
-                        <form method="POST" action="add_favorite/{{starship.id}}">
-                            {% csrf_token %}
-                            <button type="submit">Add favorite</button>
-                        </form>
-
-                        <form method="POST" action="remove_favorite/{{starship.id}}">
-                            {% csrf_token %}
-                            <button type="submit">Remove favorite</button>
-                        </form>
+                        {% if starship.id not in favorite_starships %}
+                            <form method="POST" action="add_favorite/{{starship.id}}">
+                                {% csrf_token %}
+                                    <button type="submit">Add favorite</button>
+                            </form>
+                        {% else %}
+                            <form method="POST" action="remove_favorite/{{starship.id}}">
+                                {% csrf_token %}
+                                <button type="submit">Remove favorite</button>
+                            </form>
+                        {% endif %}
                     </th>
                 {% endif %}
             </tr>

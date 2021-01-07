@@ -1,0 +1,21 @@
+{% extends "frontend/base.html" %}
+
+{% block content %}
+    {% if error %}
+        <script>
+            alert('Error.');
+        </script>
+    {% endif %}
+
+    <h1>Subscription</h1>
+    <form action="/subscription" method="post">
+        {% csrf_token %}
+        <input id="username" type="text" name="username" value="username">
+        <input id="email" type="text" name="email" value="email">
+        <input id="first_name" type="text" name="first_name" value="first name">
+        <input id="last_name" type="text" name="last_name" value="last name">
+        <input id="password" type="password" name="password" value="">
+        <button type="submit">Submit</button>
+    </form>
+
+{% endblock content %}

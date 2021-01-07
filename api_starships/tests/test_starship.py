@@ -1,7 +1,9 @@
 """Test starship module."""
 
 from __future__ import absolute_import
-import django ; django.setup()
+import django
+
+django.setup()
 
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
@@ -25,7 +27,7 @@ class AccountTestCase(APITestCase):
         self.client.force_authenticate(user=self.account)
 
     def test_list(self) -> None:
-        """Test list of starship.
+        """Test list of starships.
 
         Raises:
             AssertError: Assertion failed.
@@ -35,7 +37,7 @@ class AccountTestCase(APITestCase):
         assert len(response.data) > 0
 
     def test_retrieve(self) -> None:
-        """Test retrieve an starship.
+        """Test retrieve a starship.
 
         Raises:
             AssertError: Assertion failed.
@@ -45,7 +47,7 @@ class AccountTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_add_favorite(self):
-        """Test add an starship in favorite.
+        """Test add a starship in favorite.
 
         Raises:
             AssertError: Assertion failed.
@@ -55,7 +57,7 @@ class AccountTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_remove_favorite(self):
-        """Test remove an starship in favorite.
+        """Test remove a starship in favorite.
 
         Raises:
             AssertError: Assertion failed.
@@ -67,7 +69,7 @@ class AccountTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_post_forbidden(self) -> None:
-        """Test delete an account from another user (forbidden).
+        """Test create a starship (forbidden).
 
         Raises:
             AssertError: Assertion failed.
@@ -84,7 +86,7 @@ class AccountTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_delete_forbidden(self) -> None:
-        """Test delete an account from another user (forbidden).
+        """Test delete a starship (forbidden).
 
         Raises:
             AssertError: Assertion failed.
@@ -94,7 +96,7 @@ class AccountTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_partial_update_forbidden(self) -> None:
-        """Test update an account from another user (forbidden).
+        """Test update a starship (forbidden).
 
         Raises:
             AssertError: Assertion failed.
